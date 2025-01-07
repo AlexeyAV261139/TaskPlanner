@@ -1,30 +1,43 @@
+using Core.Services;
+using TaskPlanner.Server.DataAccess;
+using TaskPlanner.Server.DataAccess.Reposutory;
+using TaskPlanner.Server.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<PasswordHasher>();
+builder.Services.AddScoped<JwtProvider>();
+builder.Services.AddScoped<ApplicationContext>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<TaskRepository>();
+
+builder.Services.AddCors(); // добавляем сервисы CORS
+
+
 var app = builder.Build();
 
-app.UseDefaultFiles();
-app.UseStaticFiles();
+using var scoupe = app.Services.CreateScope();
+using var dbContext = scoupe.ServiceProvider.GetRequiredService<ApplicationContext>();
+await dbContext.Database.EnsureCreatedAsync();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
+app.UseCors(builder => builder.WithOrigins("https://localhost:5174",
+                                           "https://localhost:5500")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod());
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
 
 app.Run();

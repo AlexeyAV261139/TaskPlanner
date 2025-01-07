@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskPlanner.Server.Models;
 
-namespace TaskPlanner.Server.Controllers;
+namespace TaskPlanner.Server.Apis.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase

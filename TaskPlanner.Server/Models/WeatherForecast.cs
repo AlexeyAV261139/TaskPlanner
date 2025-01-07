@@ -1,4 +1,4 @@
-namespace TaskPlanner.Server;
+namespace TaskPlanner.Server.Models;
 
 public class WeatherForecast
 {
