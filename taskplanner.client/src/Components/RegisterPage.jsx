@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { API_BASE_URL } from '../config';
+import './RegisterPage.css';
 
 const RegisterPage = ({ onSwitchToLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+
 
     const handleRegister = async (e) => {
         e.preventDefault();
         const data = {
             login: username, // из состояния
             password: password, // из состояния
-            role: "User", // Задайте роль пользователя, например "User"
+            role: "User", // Задайте роль пользователя, например "User",
+            name: name
         };
     
         try {
@@ -40,11 +44,11 @@ const RegisterPage = ({ onSwitchToLogin }) => {
     };
 
     return (
-        <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
-            <h2>Register</h2>
+        <div class="register-form" style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+            <h2>Регистрация</h2>
             <form onSubmit={handleRegister}>
                 <div style={{ marginBottom: '10px' }}>
-                    <label>Username:</label>
+                    <label>Логин:</label>
                     <input
                         type="text"
                         value={username}
@@ -54,7 +58,7 @@ const RegisterPage = ({ onSwitchToLogin }) => {
                     />
                 </div>
                 <div style={{ marginBottom: '10px' }}>
-                    <label>Password:</label>
+                    <label>Пароль:</label>
                     <input
                         type="password"
                         value={password}
@@ -63,10 +67,20 @@ const RegisterPage = ({ onSwitchToLogin }) => {
                         style={{ display: 'block', width: '100%' }}
                     />
                 </div>
-                <button type="submit">Register</button>
+                <div style={{ marginBottom: '10px' }}>
+                    <label>Имя:</label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        style={{ display: 'block', width: '100%' }}
+                    />
+                </div>
+                <button type="submit">Зарегистрироваться</button>
             </form>
             <p>
-                Already have an account? <button onClick={onSwitchToLogin} style={{ color: 'blue', background: 'none', border: 'none', cursor: 'pointer' }}>Login here</button>
+                Аккаунт уже существует? <button onClick={onSwitchToLogin} style={{ color: 'blue', background: 'none', border: 'none', cursor: 'pointer' }}>Войти тут</button>
             </p>
         </div>
     );

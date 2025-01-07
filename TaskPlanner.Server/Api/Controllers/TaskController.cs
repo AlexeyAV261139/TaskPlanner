@@ -18,7 +18,8 @@ public class TaskController : ControllerBase
     [HttpGet("GetAll")]
     public async Task<IResult> Get()
     {
-        var tasks = await _taskRepository.GetAllTasks();
+        var tasks = await _taskRepository
+            .GetAllTasks();
         return Results.Ok(tasks);
     }
 
@@ -37,7 +38,7 @@ public class TaskController : ControllerBase
     }
 
     [HttpDelete]
-    public async Task<IResult> Delete(long id)
+    public async Task<IResult> Delete([FromQuery] long id)
     {
         await _taskRepository.Delete(id);
         return Results.Ok();
@@ -46,7 +47,7 @@ public class TaskController : ControllerBase
     [HttpPut]
     public async Task<IResult> Change(ChangeTaskRequset requset)
     {
-        await _taskRepository.Change(requset);
+            await _taskRepository.Change(requset);
         return Results.Ok();
     }
 }

@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import RegisterPage from './Components/RegisterPage';
 import LoginPage from './Components/LoginPage';
-import TaskPage from './Components/TaskPage';
+import MainPage from './Components/MainPage';
 
 const App = () => {
     const [page, setPage] = useState('register');
@@ -11,10 +11,10 @@ const App = () => {
         <div>
             {page === 'register' && <RegisterPage onSwitchToLogin={() => setPage('login')} />}
             {page === 'login' && <LoginPage onSwitchToRegister={() => setPage('register')} />}
-            {page === 'tasks' && <TaskPage />}
-            {page !== 'tasks' && (
-                <button onClick={() => setPage('tasks')} style={{ marginTop: '20px' }}>
-                    Go to Task Page
+            {page === 'main' && <MainPage />}           
+            {page !== 'main' && (
+                <button onClick={() => setPage('main')} style={{ marginTop: '-80px', position: 'absolute', marginLeft: '-400px' }}>
+                    Главная
                 </button>
             )}
         </div>

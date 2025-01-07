@@ -10,12 +10,14 @@ const TaskPage = () => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Для модального окна редактирования задачи
     const [selectedTaskId, setSelectedTaskId] = useState(null); // ID выбранной задачи для редактирования
 
-    useEffect(() => {
+    useEffect(() => {refreshTasks()}, []);
+
+    const refreshTasks = () => {
         fetch(`${API_BASE_URL}/Task/GetAll`)
             .then((response) => response.json())
             .then((data) => setTasks(data))
             .catch((error) => console.error('Error fetching tasks:', error));
-    }, []);
+    };
 
     const handleOpenCreateModal = () => setIsCreateModalOpen(true);
     const handleCloseCreateModal = () => setIsCreateModalOpen(false);
@@ -33,7 +35,7 @@ const TaskPage = () => {
     return (
         <div className="container">
             <button onClick={handleOpenCreateModal} className="create-task-button">
-                Create New Task
+                Создать задачу
             </button>
             <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Task List</h2>
             <ul className="task-list">
@@ -53,7 +55,7 @@ const TaskPage = () => {
                 <div className="modal-overlay">
                     <div className="modal">
                         <button onClick={handleCloseCreateModal} className="close-modal-button">✕</button>
-                        <CreateTaskPage />
+                        <CreateTaskPage onTaskCreated={refreshTasks}/>
                     </div>
                 </div>
             )}
@@ -63,7 +65,7 @@ const TaskPage = () => {
                 <div className="modal-overlay">
                     <div className="modal">
                         <button onClick={handleCloseEditModal} className="close-modal-button">✕</button>
-                        <EditTaskPage taskId={selectedTaskId} onClose={handleCloseEditModal} />
+                        <EditTaskPage taskId={selectedTaskId} onClose={handleCloseEditModal} onTaskUpdated={refreshTasks} />
                     </div>
                 </div>
             )}

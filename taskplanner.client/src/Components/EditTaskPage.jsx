@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 import './EditTaskPage.css';
 
-const EditTaskPage = ({ taskId, onClose }) => {
+const EditTaskPage = ({ taskId, onClose, onTaskUpdated  }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -28,12 +28,13 @@ const EditTaskPage = ({ taskId, onClose }) => {
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
-        fetch(`${API_BASE_URL}/Task/${taskId}`, {
+        fetch(`${API_BASE_URL}/Task`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
+                taskId: taskId,
                 name: taskName,
                 description,
                 executorIds: selectedUsers.map((user) => user.id),
@@ -42,6 +43,7 @@ const EditTaskPage = ({ taskId, onClose }) => {
             .then((response) => {
                 if (response.ok) {
                     alert('Task updated successfully!');
+                    onTaskUpdated(); // Обновляем список задач в TaskPage
                     onClose(); // Закрываем форму редактирования
                 } else {
                     alert('Failed to update task!');
@@ -53,6 +55,28 @@ const EditTaskPage = ({ taskId, onClose }) => {
     const handleUserSelection = (e) => {
         const value = Array.from(e.target.selectedOptions, (option) => parseInt(option.value, 10));
         setSelectedUsers(users.filter((user) => value.includes(user.id)));
+    };
+
+    const handleDeleteTask = () => {
+        const confirmDelete = window.confirm('Are you sure you want to delete this task?');
+        if (confirmDelete) {
+            fetch(`${API_BASE_URL}/Task/?id=${taskId}`, {
+                method: 'DELETE',
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert('Task deleted successfully!');
+                        onTaskUpdated(); // Обновляем список задач в TaskPage
+                        onClose(); // Закрываем модальное окно после удаления
+                    } else {
+                        alert('Failed to delete task.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error deleting task:', error);
+                    alert('Failed to delete task.');
+                });
+        }
     };
 
     return (
@@ -92,6 +116,7 @@ const EditTaskPage = ({ taskId, onClose }) => {
                 </div>
                 <button type="submit" className="submit-button">Save Changes</button>
                 <button type="button" className="cancel-button" onClick={onClose}>Cancel</button>
+                <button type="button" onClick={handleDeleteTask}>Delete Task</button>
             </form>
         </div>
     );

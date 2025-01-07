@@ -7,4 +7,5 @@ public class UserEntity : Entity
     public string Role { get; set; }
     public string? Name { get; set; }
     public Position? Position { get; set; }
+    public List<TaskEntity> TaskEntities { get; set; } = [];
 }

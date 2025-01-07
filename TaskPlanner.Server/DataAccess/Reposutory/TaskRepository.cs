@@ -19,7 +19,9 @@ public class TaskRepository
 
     public async Task<List<TaskEntity>> GetAllTasks()
     {
-        var tasks = await _context.Tasks.ToListAsync();
+        var tasks = await _context.Tasks
+            .OrderByDescending(x => x.CreationDate)
+            .ToListAsync();
         return tasks;
     }
 

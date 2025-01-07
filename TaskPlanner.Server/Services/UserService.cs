@@ -17,7 +17,7 @@ public class UserService
         _jwtProvider = jwtProvider;
     }
 
-    public void Register(string login, string password, string role)
+    public void Register(string login, string password, string role, string name)
     {
         if (_repository.GetByLogin(login) != null)
             throw new Exception("Логин занят");
@@ -29,7 +29,8 @@ public class UserService
         {
             Login = login,
             PasswordHash = hashedPassword,
-            Role = role
+            Role = role,
+            Name = name
         };
 
         _repository.Add(user);

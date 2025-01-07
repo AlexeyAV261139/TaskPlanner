@@ -18,7 +18,7 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public IResult Register([FromBody] RegisterUserRequest request)
     {
-        _userService.Register(request.Login, request.Password, request.Role);
+        _userService.Register(request.Login, request.Password, request.Role, request.Name);
         return Results.Ok();
     }
 
