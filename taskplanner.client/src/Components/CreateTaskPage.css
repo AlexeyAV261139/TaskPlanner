@@ -75,3 +75,30 @@
     width: 100%; /* Убедимся, что занимает всю ширину */
     box-sizing: border-box; /* Учёт padding в ширине */
 }
+
+.user-checkbox-container {
+    max-height: 200px; /* Ограничиваем высоту контейнера */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    border: 1px solid #ccc; /* Рамка вокруг контейнера */
+    padding: 10px; /* Отступы внутри контейнера */
+}
+
+.user-checkbox-item {
+    display: flex; /* Выстраиваем чекбокс и имя в ряд */
+    align-items: center; /* Выравниваем по вертикали */
+    margin-bottom: 5px; /* Уменьшаем отступ между элементами */
+    justify-content: flex-start; /* Обеспечиваем выравнивание по левому краю */
+}
+
+.user-checkbox-item input {
+    margin-right: 5px; /* Минимальный отступ между чекбоксом и именем */
+    margin-left: 0; /* Убираем отступ слева от чекбокса */
+    width: 5%;
+}
+
+.user-name {
+    font-size: 14px; /* Уменьшаем размер шрифта */
+    margin: 0; /* Убираем отступы вокруг имени */
+}
+
+

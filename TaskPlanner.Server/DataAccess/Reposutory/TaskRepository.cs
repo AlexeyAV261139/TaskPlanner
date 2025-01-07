@@ -62,4 +62,11 @@ public class TaskRepository
         }
         await _context.SaveChangesAsync();
     }
+
+    public async Task<TaskEntity> GetById(long id)
+    {
+        var task = await _context.Tasks.FindAsync(id)
+            ?? throw new Exception();
+        return task;
+    }
 }

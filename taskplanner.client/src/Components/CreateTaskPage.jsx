@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../config';
 import './CreateTaskPage.css';
 
-const CreateTaskPage = () => {
+const CreateTaskPage = ({ onTaskCreated }) => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -46,6 +46,7 @@ const CreateTaskPage = () => {
                     setTaskName('');
                     setDescription('');
                     setSelectedUsers([]);
+                    if (onTaskCreated) onTaskCreated();
                 } else {
                     alert('Failed to create task!');
                 }
@@ -53,9 +54,14 @@ const CreateTaskPage = () => {
             .catch((error) => console.error('Error:', error));
     };
 
-    const handleUserSelection = (e) => {
-        const value = Array.from(e.target.selectedOptions, (option) => parseInt(option.value, 10));
-        setSelectedUsers(users.filter((user) => value.includes(user.id)));
+    const handleUserSelection = (e, user) => {
+        if (e.target.checked) {
+            // Добавляем пользователя в список выбранных
+            setSelectedUsers((prevUsers) => [...prevUsers, user]);
+        } else {
+            // Убираем пользователя из списка выбранных
+            setSelectedUsers((prevUsers) => prevUsers.filter((selectedUser) => selectedUser.id !== user.id));
+        }
     };
 
     return (
@@ -81,17 +87,20 @@ const CreateTaskPage = () => {
                 </div>
                 <div className="form-group">
                     <label>Assign Users:</label>
-                    <select
-                        multiple
-                        value={selectedUsers.map((user) => user.id)}
-                        onChange={handleUserSelection}
-                    >
+                    <div className="user-checkbox-container">
                         {users.map((user) => (
-                            <option key={user.id} value={user.id}>
-                                {user.name}
-                            </option>
+                            <div key={user.id} className="user-checkbox-item">
+                                <input
+                                    type="checkbox"
+                                    id={`user-${user.id}`}
+                                    value={user.id}
+                                    checked={selectedUsers.some((selectedUser) => selectedUser.id === user.id)}
+                                    onChange={(e) => handleUserSelection(e, user)}
+                                />
+                                <label htmlFor={`user-${user.id}`} className="user-name">{user.name}</label>
+                            </div>
                         ))}
-                    </select>
+                    </div>
                 </div>
                 <button type="submit" className="submit-button">Create Task</button>
             </form>

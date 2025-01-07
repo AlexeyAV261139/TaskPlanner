@@ -37,6 +37,12 @@
 
 .task-item:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f4f4f4; /* Цвет фона при наведении */
+    transform: scale(1.02); /* Легкое увеличение размера для выделения */
+}
+
+.task-item:active {
+    transform: scale(0.98); /* Эффект при клике */
 }
 
 .task-title {

@@ -15,13 +15,19 @@ public class TaskController : ControllerBase
         _taskRepository = taskRepository;
     }
 
-    [HttpGet]
+    [HttpGet("GetAll")]
     public async Task<IResult> Get()
     {
         var tasks = await _taskRepository.GetAllTasks();
         return Results.Ok(tasks);
     }
 
+    [HttpGet]
+    public async Task<IResult> GetById([FromQuery] long id)
+    {
+        var task = await _taskRepository.GetById(id);
+        return Results.Ok(task);
+    }
 
     [HttpPost]
     public async Task<IResult> Create(CreateTaskRequest request)
