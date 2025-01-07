@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.csproj" />
     <ProjectReference Include="..\taskplanner.client\taskplanner.client.esproj" />
   </ItemGroup>
 
