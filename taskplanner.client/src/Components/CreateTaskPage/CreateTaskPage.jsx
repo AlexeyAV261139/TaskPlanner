@@ -69,11 +69,11 @@ const CreateTaskPage = ({ onTaskCreated }) => {
 
     return (
         <div className="create-task-container">
-            <h2 className="create-task-title">Create Task</h2>
+            <h2 className="create-task-title">Создание задачи</h2>
             <TagManager/>
             <form onSubmit={handleCreateTask} className="create-task-form">
                 <div className="form-group">
-                    <label>Task Name:</label>
+                    <label>Название:</label>
                     <input
                         type="text"
                         value={taskName}
@@ -82,7 +82,7 @@ const CreateTaskPage = ({ onTaskCreated }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Description:</label>
+                    <label>Описание:</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
@@ -90,7 +90,7 @@ const CreateTaskPage = ({ onTaskCreated }) => {
                     ></textarea>
                 </div>
                 <div className="form-group">
-                    <label>Assign Users:</label>
+                    <label>Исполнители:</label>
                     <div className="user-checkbox-container">
                         {users.map((user) => (
                             <div key={user.id} className="user-checkbox-item">

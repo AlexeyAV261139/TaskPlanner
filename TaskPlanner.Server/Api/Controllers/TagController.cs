@@ -1,4 +1,5 @@
 ﻿using Core.Requests;
+using DAL.Models.DTOs;
 using DAL.Reposutory;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,8 @@ public class TagController : ControllerBase
     [HttpGet]
     public async Task<IResult> GetTags()
     {
-        var tags = await _tagReposytory.GetAllTag();
-        return Results.Ok(tags);
+        var tags = await _tagReposytory
+            .GetAllTag();
+        return Results.Ok(tags.Select(t => new TagDto() { Id = t.Id, Name = t.Name}));
     }
 }
