@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DAL.Reposutory;
+using Microsoft.AspNetCore.Mvc;
 using TaskPlanner.Server.Api.Requests.TaskRequests;
-using TaskPlanner.Server.DataAccess.Reposutory;
 
 namespace TaskPlanner.Server.Apis.Controllers;
 

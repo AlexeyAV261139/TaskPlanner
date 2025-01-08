@@ -1,4 +1,4 @@
-﻿using TaskPlanner.Server.DataAccess.Reposutory;
+﻿using DAL.Reposutory;
 using TaskPlanner.Server.Services;
 
 namespace Core.Services;

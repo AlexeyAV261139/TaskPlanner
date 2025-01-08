@@ -1,23 +1,14 @@
-using Core.Services;
-using TaskPlanner.Server.DataAccess;
-using TaskPlanner.Server.DataAccess.Reposutory;
-using TaskPlanner.Server.Services;
+using DAL;
+using TaskPlanner.Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<PasswordHasher>();
-builder.Services.AddScoped<JwtProvider>();
-builder.Services.AddScoped<ApplicationContext>();
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<TaskRepository>();
-
-builder.Services.AddCors(); // добавляем сервисы CORS
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
+services.RegisterService();
+services.AddCors(); 
 
 
 var app = builder.Build();
@@ -32,12 +23,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(builder => builder.WithOrigins("https://localhost:5174",
-                                           "https://localhost:5500")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod());
+app.UseCors(builder => 
+    builder.WithOrigins(
+        "https://localhost:5174",
+        "https://localhost:5500")
+    .AllowAnyHeader()
+    .AllowAnyMethod());
 
 app.MapControllers();
-
-
 app.Run();

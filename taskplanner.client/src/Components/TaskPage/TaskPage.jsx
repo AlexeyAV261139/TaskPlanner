@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { API_BASE_URL } from '../config';
-import CreateTaskPage from './CreateTaskPage';
-import EditTaskPage from './EditTaskPage'; // Импортируем компонент редактирования
+import { API_BASE_URL } from '../../config';
+import CreateTaskPage from '../CreateTaskPage/CreateTaskPage';
+import EditTaskPage from '../EditTaskPage/EditTaskPage'; // Импортируем компонент редактирования
 import './TaskPage.css';
 
 const TaskPage = () => {

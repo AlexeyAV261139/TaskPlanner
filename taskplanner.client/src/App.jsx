@@ -1,8 +1,8 @@
 import './App.css';
 import React, { useState } from 'react';
-import RegisterPage from './Components/RegisterPage';
-import LoginPage from './Components/LoginPage';
-import MainPage from './Components/MainPage';
+import RegisterPage from './Components/RegisterPage/RegisterPage';
+import LoginPage from './Components/LoginPage/LoginPage';
+import MainPage from './Components/MainPage/MainPage';
 
 const App = () => {
     const [page, setPage] = useState('register');

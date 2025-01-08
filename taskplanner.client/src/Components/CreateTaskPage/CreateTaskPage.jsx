@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL } from '../../config';
 import './CreateTaskPage.css';
+import '../TagManager/TagManager';
+import TagManager from '../TagManager/TagManager';
+
 
 const CreateTaskPage = ({ onTaskCreated }) => {
     const [taskName, setTaskName] = useState('');
@@ -67,6 +70,7 @@ const CreateTaskPage = ({ onTaskCreated }) => {
     return (
         <div className="create-task-container">
             <h2 className="create-task-title">Create Task</h2>
+            <TagManager/>
             <form onSubmit={handleCreateTask} className="create-task-form">
                 <div className="form-group">
                     <label>Task Name:</label>

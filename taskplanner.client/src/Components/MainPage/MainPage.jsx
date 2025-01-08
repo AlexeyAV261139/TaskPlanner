@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MainPage.css';
-import TaskPage from './TaskPage';
+import TaskPage from '../TaskPage/TaskPage';
 //import EmployeesPage from './Components/EmployeesPage';
 
 const MainPage = () => {

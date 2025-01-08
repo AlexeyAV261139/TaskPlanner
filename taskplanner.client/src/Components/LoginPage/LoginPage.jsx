@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_BASE_URL } from '../config';
+import { API_BASE_URL } from '../../config';
 
 const LoginPage = ({ onSwitchToRegister }) => {
     const [username, setUsername] = useState('');
